@@ -8,6 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Writer extends Authenticatable
 {
+
+    const WRITER = 1 ;
+    const NOT_WRITER = 2 ;
+
+
     use Notifiable;
 
     protected $guard = 'writer';

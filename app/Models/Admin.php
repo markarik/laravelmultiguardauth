@@ -8,6 +8,12 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
+
+    const IS_SUPER = 1 ;
+    const NOT_SUPPER = 2 ;
+
+
+
     use Notifiable;
 
     protected $guard = 'admin';

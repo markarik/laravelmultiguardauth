@@ -43,19 +43,21 @@ class LoginController extends Controller
 
     public function showAdminLoginForm()
     {
-        return view('auth.login', ['url' => 'admin']);
+        return view('admin.auth.login');
     }
 
 
     public function adminLogin(Request $request)
     {
-        $this->validate($request ,[
-            'email'   => 'required|email',
-            'password' => 'required|min:6'
-        ]);
+//        dd($request->all());
+//        $this->validate($request ,[
+//            'email'   => 'required|email',
+//            'password' => 'required|min:6'
+//        ]);
 
 
-        if(Auth::guard('admin')->attemp(['email'=>$request->email,'password'=>$request->password],$request->get('remember'))){
+        if(Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password],$request->get('remember'))){
+            dd($request->all());
             return redirect()->intended('/admin');
         }else{
             return back()->withInput($request->only('email','remember'));
@@ -70,7 +72,7 @@ class LoginController extends Controller
 
     public function showWriterLoginForm()
     {
-        return view('auth.login', ['url' => 'writer']);
+        return view('writer.auth.login', ['url' => 'writer']);
     }
 
     public function writerLogin(Request $request)

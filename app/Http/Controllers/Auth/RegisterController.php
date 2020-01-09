@@ -80,17 +80,26 @@ class RegisterController extends Controller
 
     public function showAdminRegisterForm()
     {
-        return view('auth.register', ['url' => 'admin']);
+        return view('admin.auth.register');
     }
 
     protected function createAdmin(Request $request)
     {
+//        dd($request->all());
         $this->validator($request->all())->validate();
-        $admin = Admin::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
+
+        $admin = new Admin();
+
+        $admin -> name = $request->input('name');
+        $admin -> email = $request->input('email');
+        $admin -> password = $request->input('password');
+
+        $admin->save();
+
+
+
+
+
         return redirect()->intended('login/admin');
     }
 
@@ -103,19 +112,26 @@ class RegisterController extends Controller
 
     public function showWriterRegisterForm()
     {
-        return view('auth.register', ['url' => 'writer']);
+        return view('writer.auth.register');
     }
 
 
     protected function createWriter(Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
         $this->validator($request->all())->validate();
-        $writer = Writer::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
 
-}
+
+$writer = new Writer();
+        $writer -> name = $request->input('name');
+        $writer -> email = $request->input('email');
+        $writer -> password = $request->input('password');
+
+        $writer->save();
+
+        return redirect()->intended('login/writer');
+
+
+
+    }
 }
